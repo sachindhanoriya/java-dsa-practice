@@ -1,5 +1,6 @@
 package MergeJSONObjects;
 
+
 public class MergeJSON {
     public static void main(String[] args) {
         String jsonString = 
@@ -56,7 +57,7 @@ public class MergeJSON {
             }
 
         """;
-        JSON json = JSON.jsonify(jsonString);
+        JSON json = JSONProcessor.jsonify(jsonString);
         System.out.println(json);
     }
 }

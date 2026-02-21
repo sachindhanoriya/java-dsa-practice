@@ -1,14 +1,11 @@
 package MergeJSONObjects;
 
 
-
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import MergeJSONObjects.JSONParseException;
 
 /**
  * `\` :- escape character
@@ -106,20 +103,5 @@ class JSON implements Comparable<JSON>, Cloneable, Serializable, Iterable<Map.En
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'toString'");
     }
-    
-    public static String stringify(JSON json) {
-        return json.toString();
-    }
 
-    public static JSON jsonify(String jsonString) {
-        char[] chars = jsonString.toCharArray();
-        int n = jsonString.length();
-        Map<String, Object> json = recurse(chars, n, 0);
-        return new JSON(json);
-    }
-
-    private static Map<String, Object> recurse(char[] chars, int n, int idx) {
-        // TODO
-        throw new UnsupportedOperationException("Unimplemented method 'recurse'");
-    }
 }
