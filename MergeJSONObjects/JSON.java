@@ -100,8 +100,7 @@ class JSON implements Comparable<JSON>, Cloneable, Serializable, Iterable<Map.En
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+        return this.data.toString();
     }
 
 }

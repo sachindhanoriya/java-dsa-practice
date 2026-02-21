@@ -57,6 +57,7 @@ public class MergeJSON {
             }
 
         """;
+        jsonString = "{\"key1\" : \"value1\"}";
         JSON json = JSONProcessor.jsonify(jsonString);
         System.out.println(json);
     }

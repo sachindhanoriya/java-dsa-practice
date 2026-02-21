@@ -55,28 +55,32 @@ public class JSONProcessor {
             if (cur != ':')
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
 
+            cur = chars[++idx];
             while (cur == ' ')
                 cur = chars[++idx];
 
             Object value = null;
             if (cur == '"')
                 value = getString();
-            if (cur > '1' && cur < '9')
+            else if (cur > '1' && cur < '9')
                 value = getNumber();
-            if (cur == 't')
+            else if (cur == 't')
                 value = getBooleanTrue();
-            if (cur == 'f')
+            else if (cur == 'f')
                 value = getBooleanFalse();
-            if (cur == 'n')
+            else if (cur == 'n')
                 value = getNull();
-            if (cur == '{')
+            else if (cur == '{')
                 value = getJSONObject();
-            if (cur == '[')
+            else if (cur == '[')
                 value = getArray();
             else
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
             curJson.put(key.toString(), value);
 
+            //
+            cur = chars[++idx];
+            
             while (cur == ' ')
                 cur = chars[++idx];
             
