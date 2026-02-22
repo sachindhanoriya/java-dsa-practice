@@ -69,8 +69,10 @@ public class JSONProcessor {
                 value = getBooleanFalse();
             else if (cur == 'n')
                 value = getNull();
-            else if (cur == '{')
+            else if (cur == '{'){
                 value = getJSONObject();
+                cur = chars[++idx];
+            }
             else if (cur == '[')
                 value = getArray();
             else
