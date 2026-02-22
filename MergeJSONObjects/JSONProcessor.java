@@ -143,8 +143,13 @@ public class JSONProcessor {
     }
 
     private static Object getNull() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNull'");
+        char[] boolTrue = new char[] { 'n', 'u', 'l', 'l' };
+        for (char ch : boolTrue) {
+            if (ch != cur)
+                throw new JSONParseException(String.format("Invalid character at %d", idx));
+            cur = chars[++idx];
+        }
+        return false;
     }
 
     private static Object getArray() {

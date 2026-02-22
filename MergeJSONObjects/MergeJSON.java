@@ -57,7 +57,7 @@ public class MergeJSON {
             }
 
         """;
-        jsonString = "{\"key4\" : true,\"key5\":false ,\"key1\" : \"value1\"    ,    \"key2\"  :  123,    \"key3\"  :  456.345 }";
+        jsonString = "{\"key6\":null,\"key4\" : true,\"key5\":false ,\"key1\" : \"value1\"    ,    \"key2\"  :  123,    \"key3\"  :  456.345 }";
         JSON json = JSONProcessor.jsonify(jsonString);
         System.out.println(json);
     }
