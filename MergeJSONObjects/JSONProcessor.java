@@ -149,7 +149,7 @@ public class JSONProcessor {
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
             cur = chars[++idx];
         }
-        return false;
+        return null;
     }
 
     private static Object getArray() {
