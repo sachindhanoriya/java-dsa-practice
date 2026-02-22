@@ -40,7 +40,7 @@ import java.util.Map.Entry;
  *                  "income": 55.5,
  *                  "married": true,
  *                  "usingProsperIO": false,
- *                  "skills" [true, false, "engineering", 23]
+ *                  "skills": [true, false, "engineering", 23]
  *              },
  *              {
  *                  "name": "Zeha Dhanoriya",
@@ -48,7 +48,7 @@ import java.util.Map.Entry;
  *                  "income": 55.5,
  *                  "married": true,
  *                  "usingProsperIO": false,
- *                  "skills": null,
+ *                  "skills": null
  *              }
  *          ]
  *      },
@@ -64,7 +64,7 @@ import java.util.Map.Entry;
  *              "income": 55.5,
  *              "married": true,
  *              "usingProsperIO": false,
- *              "skills": null,
+ *              "skills": null
  *          }
  *      ]
  *  }

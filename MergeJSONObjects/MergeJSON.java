@@ -27,7 +27,7 @@ public class MergeJSON {
                             "income": 55.5,
                             "married": true,
                             "usingProsperIO": false,
-                            "skills" [true, false, "engineering", 23]
+                            "skills": [true, false, "engineering", 23]
                         },
                         {
                             "name": "Zeha Dhanoriya",
@@ -35,7 +35,7 @@ public class MergeJSON {
                             "income": 55.5,
                             "married": true,
                             "usingProsperIO": false,
-                            "skills": null,
+                            "skills": null
                         }
                     ]
                 },
@@ -51,14 +51,15 @@ public class MergeJSON {
                         "income": 55.5,
                         "married": true,
                         "usingProsperIO": false,
-                        "skills": null,
+                        "skills": null
                     }
                 ]
             }
 
         """;
-        jsonString = "{\"key7\":{\"key6\":null,\"key4\" : true,\"key5\":false ,\"key1\" : \"value1\"    ,    \"key2\"  :  123,    \"key3\"  :  456.345 },\"key6\":null,\"key4\" : true,\"key5\":false ,\"key1\" : \"value1\"    ,    \"key2\"  :  123,    \"key3\"  :  456.345 }";
+        // jsonString = "{\"key8\": [\"stringVal\", 12, 34.56, true, false, null, {\"key9\": null }, [1, true] ] , \"key7\":{\"key6\":null,\"key4\" : true,\"key5\":false ,\"key1\" : \"value1\"    ,    \"key2\"  :  123,    \"key3\"  :  456.345 },\"key6\":null,\"key4\" : true,\"key5\":false ,\"key1\" : \"value1\"    ,    \"key2\"  :  123,    \"key3\"  :  456.345 }";
         JSON json = JSONProcessor.jsonify(jsonString);
         System.out.println(json);
+        System.out.println(json.toString());
     }
 }

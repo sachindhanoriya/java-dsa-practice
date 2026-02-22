@@ -2,6 +2,7 @@ package MergeJSONObjects;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class JSONProcessor {
     static int idx;
@@ -14,15 +15,21 @@ public class JSONProcessor {
     }
 
     public static JSON jsonify(String jsonString) {
-        chars = jsonString.toCharArray();
+        jsonString = jsonString.trim();
         n = jsonString.length();
+        chars = jsonString.toCharArray();
         idx = 0;
         Map<String, Object> json = null;
         try {
             json = getJSONObject();
         } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            throw new JSONParseException("Invalid input JSON");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
             throw new JSONParseException("Invalid input JSON");
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new JSONParseException("JSON Parse Error");
         }
         return new JSON(json);
@@ -30,6 +37,9 @@ public class JSONProcessor {
 
     private static Map<String, Object> getJSONObject() {
         cur = chars[idx];
+        while (cur == ' ' || cur == '\n' || cur == '\t')
+            cur = chars[++idx];
+        
         if (cur != '{')
             throw new JSONParseException(String.format("Invalid character at %d", idx));
         //
@@ -38,7 +48,7 @@ public class JSONProcessor {
         Map<String, Object> curJson = new HashMap<>();
         while (cur != '}') {
             // Parse Key
-            while (cur == ' ')
+            while (cur == ' ' || cur == '\n' || cur == '\t')
                 cur = chars[++idx];
 
             if (cur != '"')
@@ -48,14 +58,14 @@ public class JSONProcessor {
             curJson.put(key, null);
 
             // Parse Value
-            while (cur == ' ')
+            while (cur == ' ' || cur == '\n' || cur == '\t')
                 cur = chars[++idx];
 
             if (cur != ':')
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
 
             cur = chars[++idx];
-            while (cur == ' ')
+            while (cur == ' ' || cur == '\n' || cur == '\t')
                 cur = chars[++idx];
 
             Object value = null;
@@ -69,23 +79,23 @@ public class JSONProcessor {
                 value = getBooleanFalse();
             else if (cur == 'n')
                 value = getNull();
-            else if (cur == '{'){
+            else if (cur == '{')
                 value = getJSONObject();
-                cur = chars[++idx];
-            }
             else if (cur == '[')
                 value = getArray();
             else
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
             curJson.put(key.toString(), value);
 
-            while (cur == ' ')
+            while (cur == ' ' || cur == '\n' || cur == '\t')
                 cur = chars[++idx];
 
             if (cur == ',')
                 cur = chars[++idx];
         }
 
+        if (idx < n - 1)
+            cur = chars[++idx];
         return curJson;
     }
 
@@ -154,8 +164,42 @@ public class JSONProcessor {
         return null;
     }
 
-    private static Object getArray() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getArray'");
+    private static ArrayList<Object> getArray() {
+        ArrayList<Object> array = new ArrayList<>();
+        cur = chars[++idx];
+        while (cur != ']') {
+            while (cur == ' ' || cur == '\n' || cur == '\t')
+                cur = chars[++idx];
+
+            Object value = null;
+            if (cur == '"')
+                value = getString();
+            else if (cur >= '0' && cur <= '9')
+                value = getNumber();
+            else if (cur == 't')
+                value = getBooleanTrue();
+            else if (cur == 'f')
+                value = getBooleanFalse();
+            else if (cur == 'n')
+                value = getNull();
+            else if (cur == '{')
+                value = getJSONObject();
+            else if (cur == '[')
+                value = getArray();
+            else
+                throw new JSONParseException(String.format("Invalid character at %d", idx));
+            
+            array.add(value);
+            
+            while (cur == ' ' || cur == '\n' || cur == '\t' || cur == ',')
+                cur = chars[++idx];
+        }
+        cur = chars[++idx];
+        return array;
+    }
+
+    public static JSON mergeJSONObjects(JSON json1,JSON json2) {
+        // TODO
+        throw new UnsupportedOperationException("Unimplemented method 'mergeJSONObjects(JSON json1,JSON json2) : JSON'");
     }
 }
