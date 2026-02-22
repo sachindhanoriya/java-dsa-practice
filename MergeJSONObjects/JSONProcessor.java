@@ -36,14 +36,14 @@ public class JSONProcessor {
         cur = chars[++idx];
 
         Map<String, Object> curJson = new HashMap<>();
-        while (cur != '}') {    
+        while (cur != '}') {
             // Parse Key
             while (cur == ' ')
                 cur = chars[++idx];
-            
+
             if (cur != '"')
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
-            
+
             String key = getString();
             curJson.put(key, null);
 
@@ -76,10 +76,10 @@ public class JSONProcessor {
             else
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
             curJson.put(key.toString(), value);
-            
+
             while (cur == ' ')
                 cur = chars[++idx];
-            
+
             if (cur == ',')
                 cur = chars[++idx];
         }
@@ -122,14 +122,24 @@ public class JSONProcessor {
         return Double.parseDouble(number.toString());
     }
 
-    private static Object getBooleanTrue() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBooleanTrue'");
+    private static boolean getBooleanTrue() {
+        char[] boolTrue = new char[] { 't', 'r', 'u', 'e' };
+        for (char ch : boolTrue) {
+            if (ch != cur)
+                throw new JSONParseException(String.format("Invalid character at %d", idx));
+            cur = chars[++idx];
+        }
+        return true;
     }
 
-    private static Object getBooleanFalse() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBooleanFalse'");
+    private static boolean getBooleanFalse() {
+        char[] boolTrue = new char[] { 'f', 'a', 'l', 's', 'e' };
+        for (char ch : boolTrue) {
+            if (ch != cur)
+                throw new JSONParseException(String.format("Invalid character at %d", idx));
+            cur = chars[++idx];
+        }
+        return false;
     }
 
     private static Object getNull() {
