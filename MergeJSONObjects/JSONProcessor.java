@@ -2,6 +2,7 @@ package MergeJSONObjects;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ArrayList;
 
 public class JSONProcessor {
@@ -33,6 +34,12 @@ public class JSONProcessor {
             throw new JSONParseException("JSON Parse Error");
         }
         return new JSON(json);
+    }
+
+
+    public static JSON mergeJSONObjects(JSON json1,JSON json2) {
+        Map<String, Object> mergedJson = mergeJSONData(json1.getData(), json2.getData());
+        return new JSON(mergedJson);
     }
 
     private static Map<String, Object> getJSONObject() {
@@ -164,8 +171,8 @@ public class JSONProcessor {
         return null;
     }
 
-    private static ArrayList<Object> getArray() {
-        ArrayList<Object> array = new ArrayList<>();
+    private static List<Object> getArray() {
+        List<Object> array = new ArrayList<>();
         cur = chars[++idx];
         while (cur != ']') {
             while (cur == ' ' || cur == '\n' || cur == '\t')
@@ -198,8 +205,38 @@ public class JSONProcessor {
         return array;
     }
 
-    public static JSON mergeJSONObjects(JSON json1,JSON json2) {
-        // TODO
-        throw new UnsupportedOperationException("Unimplemented method 'mergeJSONObjects(JSON json1,JSON json2) : JSON'");
+    private static Map<String, Object> mergeJSONData(Map<String, Object> dataMap1, Map<String, Object> dataMap2) {
+        if (dataMap1 == null)
+            return dataMap2;
+        if (dataMap2 == null)
+            return dataMap1;
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        for (Map.Entry<String, Object> entry : dataMap1.entrySet()) {
+            String key = entry.getKey();
+            Object value1 = entry.getValue();
+            Object value2 = dataMap2.get(key);
+            if (!dataMap2.containsKey(key) || value1.equals(dataMap2.get(key)))
+                resultMap.put(key, value1);
+            else {
+                if (value1 instanceof Map && value2 instanceof Map) {
+                    Map<String, Object> resultSubMap = mergeJSONData((Map<String, Object>) value1, (Map<String, Object>) value2);
+                    resultMap.put(key, resultSubMap);
+                }
+                else {
+                    List<Object> listValue = new ArrayList<>();
+                    listValue.add(value1);
+                    listValue.add(value2);
+                    resultMap.put(key, listValue);
+                }
+            }
+        }
+
+        for (Map.Entry<String, Object> entry : dataMap2.entrySet())
+            if (!dataMap1.containsKey(entry.getKey()))
+                resultMap.put(entry.getKey(), entry.getValue());
+
+        return resultMap;
     }
 }
