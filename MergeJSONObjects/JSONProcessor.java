@@ -7,6 +7,7 @@ public class JSONProcessor {
     static int idx;
     static int n;
     static char[] chars;
+    static char cur;
 
     public static String stringify(JSON json) {
         return json.toString();
@@ -28,7 +29,7 @@ public class JSONProcessor {
     }
 
     private static Map<String, Object> getJSONObject() {
-        char cur = chars[idx];
+        cur = chars[idx];
         if (cur != '{')
             throw new JSONParseException(String.format("Invalid character at %d", idx));
         //
@@ -45,8 +46,6 @@ public class JSONProcessor {
             
             String key = getString();
             curJson.put(key, null);
-            //
-            cur = chars[++idx];
 
             // Parse Value
             while (cur == ' ')
@@ -62,7 +61,7 @@ public class JSONProcessor {
             Object value = null;
             if (cur == '"')
                 value = getString();
-            else if (cur > '1' && cur < '9')
+            else if (cur >= '0' && cur <= '9')
                 value = getNumber();
             else if (cur == 't')
                 value = getBooleanTrue();
@@ -77,9 +76,6 @@ public class JSONProcessor {
             else
                 throw new JSONParseException(String.format("Invalid character at %d", idx));
             curJson.put(key.toString(), value);
-
-            //
-            cur = chars[++idx];
             
             while (cur == ' ')
                 cur = chars[++idx];
@@ -93,7 +89,7 @@ public class JSONProcessor {
 
     private static String getString() {
         StringBuilder key = new StringBuilder();
-        char cur = chars[++idx];
+        cur = chars[++idx];
         while (cur != '"') {
             if (cur == '\\') {
                 cur = chars[++idx];
@@ -103,12 +99,27 @@ public class JSONProcessor {
             key.append(cur);
             cur = chars[++idx];
         }
+
+        cur = chars[++idx];
         return key.toString();
     }
 
     private static Object getNumber() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStringValue'");
+        StringBuffer number = new StringBuffer();
+        while (cur >= '0' && cur <= '9') {
+            number.append(cur);
+            cur = chars[++idx];
+        }
+        if (cur != '.')
+            return Integer.parseInt(number.toString());
+        if (cur == '.')
+            number.append(cur);
+        cur = chars[++idx];
+        while (cur >= '0' && cur <= '9') {
+            number.append(cur);
+            cur = chars[++idx];
+        }
+        return Double.parseDouble(number.toString());
     }
 
     private static Object getBooleanTrue() {
@@ -123,11 +134,11 @@ public class JSONProcessor {
 
     private static Object getNull() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBooleanFalse'");
+        throw new UnsupportedOperationException("Unimplemented method 'getNull'");
     }
 
     private static Object getArray() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBooleanFalse'");
+        throw new UnsupportedOperationException("Unimplemented method 'getArray'");
     }
 }

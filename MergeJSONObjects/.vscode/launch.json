@@ -6,15 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Java Program",
-            "request": "launch",
-            "mainClass": "${file}",
-        },
-        {
-            "type": "java",
             "name": "Launch MergeJSON Program",
             "request": "launch",
-            "mainClass": "${cwd}\\MergeJSONObjects\\MergeJSON.java",
+            "mainClass": "${cwd}\\MergeJSON.java",
         }
     ]
 }
