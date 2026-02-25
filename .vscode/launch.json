@@ -9,12 +9,13 @@
             "name": "Launch Java Program",
             "request": "launch",
             "mainClass": "${file}",
+            // "vmArgs": "-XX:StartFlightRecording:filename=recording.jfr",
         },
         {
             "type": "java",
-            "name": "Launch MergeJSON Program",
+            "name": "MergeJSON Program: Launch",
             "request": "launch",
-            "mainClass": "${cwd}\\MergeJSONObjects\\MergeJSON.java",
+            "mainClass": "${cwd}\\MergeJSONObjects\\MergeJSON.java"
         }
     ]
 }
