@@ -1,4 +1,4 @@
-package MergeJSONObjects;
+package json;
 
 public class MergeJSON {
     public static void main(String[] args) {

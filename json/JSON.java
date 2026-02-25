@@ -1,4 +1,4 @@
-package MergeJSONObjects;
+package json;
 
 import java.io.Serializable;
 import java.util.Iterator;
