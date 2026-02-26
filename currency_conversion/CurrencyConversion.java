@@ -13,12 +13,15 @@ public class CurrencyConversion {
         queries.add(new Object[] { "JPY", "THAI" });
         queries.add(new Object[] { "USD", "AUD" });
         Solution sol = new Solution();
-        System.out.println(sol.getConversionRates(rates, queries));
+        System.out.println(sol.getConversionRates2(rates, queries));
     }
 
 }
 
 class Solution {
+
+    private Map<String, Map<String, Double>> conversionRates;
+    private Set<String> visited;
 
     public List<Double> getConversionRates(List<Object[]> rates, List<Object[]> queries) {
         // Build the graph
@@ -60,6 +63,47 @@ class Solution {
             Double rate = dfs(graph, visited, neighbour, end, value * neighbours.get(neighbour));
             if (rate != -1.0)
                 return rate;
+        }
+        return -1.0;
+    }
+
+    public List<Double> getConversionRates2(List<Object[]> conversionRatesList, List<Object[]> queries) {
+        this.conversionRates = new HashMap<>();
+        this.visited = new HashSet<>();
+        for (Object[] conversionRate : conversionRatesList) {
+            String to = (String) conversionRate[0];
+            String from = (String) conversionRate[1];
+            Double rate = (Double) conversionRate[2];
+            
+            this.conversionRates.putIfAbsent(to, new HashMap<>());
+            this.conversionRates.get(to).put(from, rate);
+            
+            this.conversionRates.putIfAbsent(from, new HashMap<>());
+            this.conversionRates.get(from).put(to, 1/rate);
+        }
+
+        List<Double> result = new ArrayList<>();
+        for (Object[] query : queries) {
+            String from = (String) query[0];
+            String to = (String) query[1];
+            visited.clear();
+            Double conversionRate = dfs2(from, to, 1);
+            result.add(conversionRate);
+        }
+        return result;
+    }
+
+    private Double dfs2(String from, String to, double rate) {
+        if (from.equals(to))
+            return rate;
+        if (!this.conversionRates.containsKey(from) || visited.contains(from))
+            return -1.0;
+
+        visited.add(from);
+        for (Map.Entry<String, Double> conversion : this.conversionRates.get(from).entrySet()) {
+            Double conversionRate = dfs2(conversion.getKey(), to, rate * conversion.getValue());
+            if (conversionRate > -1)
+                return conversionRate;
         }
         return -1.0;
     }

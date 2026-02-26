@@ -9,7 +9,7 @@
             "name": "Launch Java Program",
             "request": "launch",
             "mainClass": "${file}",
-            // "vmArgs": "-XX:StartFlightRecording:filename=recording.jfr",
+            // "vmArgs": "-XX:StartFlightRecording:filename=recording.jfr,-XX:+ShowCodeDetailsInExceptionMessages",
         },
         {
             "type": "java",
