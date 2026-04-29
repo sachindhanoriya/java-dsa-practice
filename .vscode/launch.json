@@ -6,14 +6,14 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Current Java Program",
+            "name": "Launch: Current Java Program",
             "request": "launch",
             "mainClass": "${file}",
             // "vmArgs": "-XX:StartFlightRecording:filename=recording.jfr,-XX:+ShowCodeDetailsInExceptionMessages",
         },
         {
             "type": "java",
-            "name": "MergeJSON Program: Launch",
+            "name": "Launch: MergeJSON Program",
             "request": "launch",
             "mainClass": "${cwd}\\LLD\\json\\MergeJSON.java"
         }
