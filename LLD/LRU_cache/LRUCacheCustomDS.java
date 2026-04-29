@@ -1,4 +1,4 @@
-package LRU_cache;
+package LLD.LRU_cache;
 
 import java.util.*;
 

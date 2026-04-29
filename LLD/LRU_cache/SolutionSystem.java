@@ -1,4 +1,4 @@
-package LRU_cache;
+package LLD.LRU_cache;
 
 public class SolutionSystem {
     public static void main(String[] args) {

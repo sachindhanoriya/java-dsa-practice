@@ -1,4 +1,4 @@
-package json;
+package LLD.json;
 
 public class MergeJSON {
     public static void main(String[] args) {
