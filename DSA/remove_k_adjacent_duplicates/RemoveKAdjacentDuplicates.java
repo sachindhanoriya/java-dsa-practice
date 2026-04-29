@@ -1,4 +1,4 @@
-package remove_k_adjacent_duplicates;
+package DSA.remove_k_adjacent_duplicates;
 
 import java.util.Stack;
 import java.util.function.Function;

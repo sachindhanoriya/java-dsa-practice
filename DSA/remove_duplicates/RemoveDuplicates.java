@@ -1,4 +1,4 @@
-package remove_duplicates;
+package DSA.remove_duplicates;
 
 import java.util.*;
 

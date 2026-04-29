@@ -1,4 +1,4 @@
-package merge_intervals;
+package DSA.merge_intervals;
 
 import java.util.*;
 

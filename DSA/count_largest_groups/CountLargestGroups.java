@@ -1,4 +1,4 @@
-package count_largest_groups;
+package DSA.count_largest_groups;
 
 
 public class CountLargestGroups {

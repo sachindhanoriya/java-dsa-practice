@@ -1,4 +1,4 @@
-package currency_conversion;
+package DSA.currency_conversion;
 
 import java.util.*;
 

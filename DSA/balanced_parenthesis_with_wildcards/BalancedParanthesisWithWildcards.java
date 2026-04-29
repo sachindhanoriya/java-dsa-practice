@@ -1,4 +1,4 @@
-package balanced_parenthesis_with_wildcards;
+package DSA.balanced_parenthesis_with_wildcards;
 
 import java.util.Stack;
 
