@@ -9,14 +9,14 @@ public class RemoveKAdjacentDuplicates {
 
     public static void main(String[] args) {
         var solution = new Solution();
-        // var inputA = new Inputs("abcd", 2);
-        // System.out.println(solution.removeDuplicates(inputA.str(), inputA.k()));
-        // var inputB = new Inputs("deeedbbcccbdaa", 3);
-        // System.out.println(solution.removeDuplicates(inputB.str, inputB.k));
-        // var inputC = new Inputs("pbbcggttciiippooaais", 2);
-        // System.out.println(solution.removeDuplicates(inputC.str, inputC.k));
-        var inputC = new Inputs("aaaa", 2);
+        var inputA = new Inputs("abcd", 2);
+        System.out.println(solution.removeDuplicates(inputA.str(), inputA.k()));
+        var inputB = new Inputs("deeedbbcccbdaa", 3);
+        System.out.println(solution.removeDuplicates(inputB.str, inputB.k));
+        var inputC = new Inputs("pbbcggttciiippooaais", 2);
         System.out.println(solution.removeDuplicates(inputC.str, inputC.k));
+        var inputD = new Inputs("aaaa", 2);
+        System.out.println(solution.removeDuplicates(inputD.str, inputD.k));
     }
 }
 
