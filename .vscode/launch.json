@@ -17,5 +17,11 @@
             "request": "launch",
             "mainClass": "${cwd}\\LLD\\json\\MergeJSON.java"
         }
+        {
+            "type": "java",
+            "name": "Launch: Trie Program",
+            "request": "launch",
+            "mainClass": "${cwd}\\LLD\\trie\\TrieDriver.java"
+        }
     ]
 }
