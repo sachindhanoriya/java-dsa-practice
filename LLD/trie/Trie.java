@@ -123,3 +123,7 @@ public class Trie {
     }
 
 }
+
+which is the best unit testing framework Java. My trie program is neither the gradle nor the maven build. What the best practice and recommended way to test such kinds of application?
+
+What's classpath? is it different for different applications/programs or it is common for all the program in the system? how to download and install junit 5 and add it to classpath?
