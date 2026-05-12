@@ -1,7 +1,5 @@
 package DSA.balanced_parenthesis_with_wildcards;
 
-import java.util.Stack;
-
 
 public class BalancedParanthesisWithWildcards {
     public static void main(String[] args) {
@@ -28,8 +26,32 @@ public class BalancedParanthesisWithWildcards {
 */
 
 class Solution {
+    private String str;
+    private int strLen;
     public boolean checkValidString(String s) {
-        Stack<Character> stk = new Stack<>();
-        return false;
+        this.str = s;
+        this.strLen = s.length();
+        return recurse(0, 0);
+    }
+
+    private boolean recurse(int curIdx, int openBraces) {
+        if (curIdx == strLen)
+            return openBraces == 0;
+        
+        char curChar = this.str.charAt(curIdx);
+        boolean isValid = false;
+        
+        if (curChar == '(') {
+            isValid |= recurse(curIdx + 1, openBraces + 1);
+        }
+        else if (curChar == '*') {
+            isValid |= recurse(curIdx + 1, openBraces + 1);
+            if (openBraces > 0)
+                isValid |= recurse(curIdx + 1, openBraces - 1);
+            isValid |= recurse(curIdx + 1, openBraces);
+        } else if (openBraces > 0) {
+            isValid |= recurse(curIdx + 1, openBraces - 1);
+        }
+        return isValid;
     }
 }
