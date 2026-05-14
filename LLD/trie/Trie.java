@@ -93,9 +93,7 @@ public class Trie {
                 return 0;
             node = node.get(c);
         }
-        if (node == null || node.getWordEndCount() == 0)
-            return 0;
-        return node.getWordPrefixCount();
+        return node != null ? node.getWordEndCount() : 0;
     }
     
     public int countWordsStartingWith(String prefix) {
@@ -105,9 +103,7 @@ public class Trie {
                 return 0;
             node = node.get(c);
         }
-        if (node == null)
-            return 0;
-        return node.getWordPrefixCount();
+        return node != null ? node.getWordPrefixCount() : 0;
     }
     
     public void erase(String word) {
