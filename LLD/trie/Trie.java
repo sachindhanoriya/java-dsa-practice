@@ -5,13 +5,13 @@ public class Trie {
 
     private class TrieNode {
         private TrieNode[] letters;
-        private boolean endOfWord;
-        private int wordCount;
+        private int wordEndCount;
+        private int wordPrefixCount;
 
         public TrieNode() {
             letters = new TrieNode[26];
-            endOfWord = false;
-            wordCount = 0;
+            wordEndCount = 0;
+            wordPrefixCount = 0;
         }
 
         public TrieNode put(char c) {
@@ -25,29 +25,28 @@ public class Trie {
             return letters[c - 'a'];
         }
 
-        public void endThisWord() {
-            endOfWord = true;
+        public void endWord() {
+            wordEndCount++;
         }
 
-        public void eraseThisWord() {
-            if (wordCount == 0)
-                endOfWord = false;
+        public void eraseWord() {
+            wordEndCount--;
         }
 
-        public boolean isEndOfWord() {
-            return endOfWord;
+        public int getWordEndCount() {
+            return wordEndCount;
         }
 
-        public void incWordCount() {
-            wordCount++;
+        public void incWordPrefixCount() {
+            wordPrefixCount++;
         }
         
-        public void decWordCount() {
-            wordCount--;
+        public void decWordPrefixCount() {
+            wordPrefixCount--;
         }
 
-        public int getWordCount() {
-            return wordCount;
+        public int getWordPrefixCount() {
+            return wordPrefixCount;
         }
 
     }
@@ -62,9 +61,9 @@ public class Trie {
         TrieNode node = root;
         for (char c: word.toCharArray()) {
             node = node.put(c);
-            node.incWordCount();
+            node.incWordPrefixCount();
         }
-        node.endThisWord();
+        node.endWord();
     }
     
     public boolean search(String word) {
@@ -74,7 +73,7 @@ public class Trie {
                 return false;
             node = node.get(c);
         }
-        return node != null && node.isEndOfWord();
+        return node != null && node.getWordEndCount() > 0;
     }
     
     public boolean startsWith(String prefix) {
@@ -84,7 +83,7 @@ public class Trie {
                 return false;
             node = node.get(c);
         }
-        return node != null && node.getWordCount() > 0;
+        return node != null && node.getWordPrefixCount() > 0;
     }
 
     public int countWordsEqualTo(String word) {
@@ -94,9 +93,9 @@ public class Trie {
                 return 0;
             node = node.get(c);
         }
-        if (node == null || !node.isEndOfWord())
+        if (node == null || node.getWordEndCount() == 0)
             return 0;
-        return node.getWordCount();
+        return node.getWordPrefixCount();
     }
     
     public int countWordsStartingWith(String prefix) {
@@ -108,7 +107,7 @@ public class Trie {
         }
         if (node == null)
             return 0;
-        return node.getWordCount();
+        return node.getWordPrefixCount();
     }
     
     public void erase(String word) {
@@ -117,9 +116,9 @@ public class Trie {
             if (node == null)
                 return;
             node = node.get(c);
-            node.decWordCount();
+            node.decWordPrefixCount();
         }
-        node.eraseThisWord();
+        node.eraseWord();
     }
 
 }
