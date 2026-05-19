@@ -22,6 +22,12 @@
             "name": "Launch: Trie Program",
             "request": "launch",
             "mainClass": "${cwd}\\LLD\\trie\\TrieDriver.java"
+        },
+        {
+            "type": "java",
+            "name": "Launch: Word Dictionary Program",
+            "request": "launch",
+            "mainClass": "${cwd}\\LLD\\word_dictionary\\WordDictionaryDriver.java"
         }
     ]
 }
