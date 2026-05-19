@@ -1,6 +1,5 @@
 package LLD.word_dictionary;
 
-
 class WordDictionary {
 
     private class TrieNode {
