@@ -26,13 +26,13 @@ class WordDictionary {
             return endOfWord;
         }
     }
-    
+
     private TrieNode root;
 
     public WordDictionary() {
         root = new TrieNode();
     }
-    
+
     public void addWord(String word) {
         TrieNode node = root;
         for (char c : word.toCharArray()) {
@@ -40,7 +40,7 @@ class WordDictionary {
         }
         node.setEndOfWord();
     }
-    
+
     public boolean search(String word) {
         return dfs(root, 0, word, word.length());
     }
@@ -58,8 +58,7 @@ class WordDictionary {
                     isFound |= dfs(next, idx + 1, word, n);
             }
             return isFound;
-        }
-        else if (node.letters[curChar - 'a'] != null) {
+        } else if (node.letters[curChar - 'a'] != null) {
             return dfs(node.letters[curChar - 'a'], idx + 1, word, n);
         }
         return false;
